@@ -1,7 +1,7 @@
 from typing import Tuple, Optional
 import pika
 from config import (
-    QUEUE_NAME, QUEUE_LIMIT,
+    QUEUE_NAME, QUEUE_LIMIT, DS_DIRECT_EXCHANGE
 )
 
 
@@ -13,7 +13,7 @@ def task_queue():
         pika.ConnectionParameters(host='localhost')
     )
     channel = connection.channel()
-    channel.exchange_declare(exchange='', exchange_type='direct', durable=True)
+    channel.exchange_declare(exchange=DS_DIRECT_EXCHANGE, exchange_type='direct', durable=True)
     channel.queue_declare(
         queue=QUEUE_NAME, 
         durable=True,
